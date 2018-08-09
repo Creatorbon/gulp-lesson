@@ -56,15 +56,14 @@ gulp.task('clean', function() {
 });
 
 gulp.task('img', function() {
-	return gulp.src('app/img/**/*') // Берем все изображения из app
-		.pipe(cache(imagemin({ // С кешированием
-		// .pipe(imagemin({ // Сжимаем изображения без кеширования
-			interlaced: true,
-			progressive: true,
-			svgoPlugins: [{removeViewBox: false}],
-			use: [pngquant()]
-		}))/**/)
-		.pipe(gulp.dest('dist/img')); // Выгружаем на продакшен
+    return gulp.src('app/img/**/*') // Берем все изображения из app
+        .pipe(cache(imagemin({  // Сжимаем их с наилучшими настройками с учетом кеширования
+            interlaced: true,
+            progressive: true,
+            svgoPlugins: [{removeViewBox: false}],
+            use: [pngquant()]
+        })))
+        .pipe(gulp.dest('dist/img')); // Выгружаем на продакшен
 });
 
 gulp.task('build', ['clean', 'img', 'sass', 'scripts'], function() {
